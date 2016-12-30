@@ -1,4 +1,4 @@
 #!/bin/sh
 
 exec < /dev/tty
-.git/hooks/validate-commit-message.py
+.git/hooks/py/validate-commit-message.py

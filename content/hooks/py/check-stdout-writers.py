@@ -12,7 +12,7 @@ GREEN_BRIGHT = '\x1b[32m' + '\x1b[1m'
 RESET = '\x1b[0m'
 NORMAL = '\x1b[22m'
 
-cmd = os.popen('git ls-files')
+cmd = os.popen('git diff --cached --name-only')
 output = cmd.read().splitlines()
 
 def find(pattern, file, is_word=True):

@@ -1,4 +1,4 @@
 #!/bin/sh
 
 exec < /dev/tty
-.git/hooks/prepare-commit-msg.py $1 $2 $3 $4 $5 $6 $7 $8 $9
+.git/hooks/py/prepare-commit-msg.py $1 $2 $3 $4 $5 $6 $7 $8 $9
