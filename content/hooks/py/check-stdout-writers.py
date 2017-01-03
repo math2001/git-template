@@ -42,7 +42,7 @@ def confirm(text):
 def find(pattern, file, is_word=True):
     _pattern = re.escape(pattern)
     if is_word:
-        _pattern = r'(\W|^)' + _pattern + r'(\W|$)'
+        _pattern = r'(CSW: ignore\n)?\s*(\W|^)' + _pattern + r'(\W|$)'
     try:
         with open(file) as fp:
             content = fp.read()
@@ -67,15 +67,15 @@ def get_rowcol(content, point):
     line = 0
     line_char = 0
     for i, char in enumerate(content):
-        if i == point:
-            return line, line_char
         line_char += 1
         if char == '\n':
             line += 1
             line_char = 0
+        if i == point:
+            return line, line_char
 
 def show_error(found, match, content, file):
-    nb_line, nb_char = get_rowcol(content, match.start() + 1)
+    nb_line, nb_char = get_rowcol(content, match.start() + len(match.group(1) or '') + 1)
     print(RED + 'CSW: found a {bright}{!r}{normal} in {bright}{!r}{normal} '
         'line {bright}{!r}{normal}'.format(found, file, nb_line + 1, bright=BRIGHT, normal=NORMAL) + RESET)
 
@@ -102,6 +102,8 @@ def checkfile(file):
                 matches, content = find(ow, file)
                 if matches is None: continue
                 for match in matches:
+                    if match.group(1) is not None:
+                        continue # there is a CSW: ignore
                     show_error(ow, match, content, file)
                     nb_error += 1
 
