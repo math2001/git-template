@@ -57,7 +57,7 @@ def find(pattern, file, is_word=True):
             stop(RED_BRIGHT + 'Abort')
     else:
         for line in content.splitlines()[:2]:
-            if 'CSW: ignore' in line:
+            if 'CSW: ignore *' in line:
                 return None, content
         return re.finditer(_pattern, content, re.MULTILINE), content
     return None, None
