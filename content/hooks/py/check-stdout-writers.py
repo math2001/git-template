@@ -44,7 +44,7 @@ def find(pattern, file, is_word=True):
     if is_word:
         _pattern = r'(CSW: ignore\n)?\s*(\W|^)' + _pattern + r'(\W|$)'
     try:
-        with open(file) as fp:
+        with open(file, encoding='utf8') as fp:
             content = fp.read()
     except FileNotFoundError:
         if confirm(YELLOW + "CSW: The file {!r} wasn't found. Abort?".format(file) + RESET):
